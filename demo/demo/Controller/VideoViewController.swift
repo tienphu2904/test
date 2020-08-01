@@ -100,8 +100,8 @@ extension VideoViewController: UICollectionViewDelegate, UICollectionViewDataSou
         switch indexPath.row {
         case 0:
             videoTimelineView.stop()
-//            getVideo()
-            insertVideo()
+            getVideo()
+//            insertVideo()
         case 1:
             print(videoTimelineView.currentTime)
         case 2:
@@ -218,22 +218,22 @@ extension VideoViewController {
         removeFileIfExists(fileURL: furl5)
         let furl = createUrlInApp(name: "video.MOV")
         removeFileIfExists(fileURL: furl)
-//        let s1 = "-i \(originalVideoURL!) -c copy \(furl1)"
-//        MobileFFmpeg.execute(s1)
-//        let s2 = "-i \(secondVideoURL!) -c copy \(furl2)"
-//        MobileFFmpeg.execute(s2)
-////      let a = "-i \(filePath)  -aspect 1:1 -vf \"pad=iw:ih*2:iw/1:ih/2:color=\(self.str)\" \(furl)"
-//        let str = "-i \"concat:\(furl1)|\(furl2)\" -c copy \(furl3)"
-//        MobileFFmpeg.execute(str)
-//        let str1 = "-i \(furl3) \(furl)"
-//        MobileFFmpeg.execute(str1)
-        let s1 = "-i \(originalVideoURL!) \(furl4)"
+        let s1 = "-i \(originalVideoURL!) -c copy \(furl1)"
         MobileFFmpeg.execute(s1)
-        let s2 = "-i \(furl4)  -aspect 1:1 -vf \"pad=iw:ih*2:iw:ih/2:color=black\" \(furl5)"
+        let s2 = "-i \(secondVideoURL!) -c copy \(furl2)"
         MobileFFmpeg.execute(s2)
-        print(furl5)
+//      let a = "-i \(filePath)  -aspect 1:1 -vf \"pad=iw:ih*2:iw/1:ih/2:color=\(self.str)\" \(furl)"
+        let str = "-i \"concat:\(furl1)|\(furl2)\" -c copy \(furl3)"
+        MobileFFmpeg.execute(str)
+        let str1 = "-i \(furl3) \(furl)"
+        MobileFFmpeg.execute(str1)
+//        let s1 = "-i \(originalVideoURL!) \(furl4)"
+//        MobileFFmpeg.execute(s1)
+//        let s2 = "-i \(furl4)  -aspect 1:1 -vf \"pad=iw:ih*2:iw:ih/2:color=black\" \(furl5)"
+//        MobileFFmpeg.execute(s2)
+        print(furl)
         resetPlayer()
-        initVideoTimeline(url: furl5)
+        initVideoTimeline(url: furl)
     }
     
     func getVideo(){
