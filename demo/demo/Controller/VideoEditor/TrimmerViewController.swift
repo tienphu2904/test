@@ -18,8 +18,9 @@ class TrimmerViewController: AssetSelectionVideoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        trimmerView.handleColor = UIColor.white
-        trimmerView.mainColor = UIColor.darkGray
+        let asset = AVAsset(url: path as URL)
+        loadAsset(asset)
+        loadAssetRandomly()
     }
     
     @IBAction func selectAsset(_ sender: Any) {
@@ -28,7 +29,7 @@ class TrimmerViewController: AssetSelectionVideoViewController {
     
     @IBAction func back(_ sender: Any) {
         player?.pause()
-        self.navigationController?.popToRootViewController(animated: false)
+        self.navigationController?.popViewController(animated: true)  
     }
     @IBAction func duplicate(_ sender: Any) {
         player?.pause()

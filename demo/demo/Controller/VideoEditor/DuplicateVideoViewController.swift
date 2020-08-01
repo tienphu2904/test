@@ -20,8 +20,9 @@ class DuplicateVideoViewController: AssetSelectionVideoViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        trimmerView.handleColor = UIColor.white
-        trimmerView.mainColor = UIColor.darkGray
+        let asset = AVAsset(url: path as URL)
+        loadAsset(asset)
+        loadAssetRandomly()
     }
     
     @IBAction func selectAsset(_ sender: Any) {
@@ -260,10 +261,10 @@ class DuplicateVideoViewController: AssetSelectionVideoViewController {
     }
     
     override func loadAsset(_ asset: AVAsset) {
-        let a = AVAsset(url: path as URL)
-        trimmerView.asset = a
+        
+        trimmerView.asset = asset
         trimmerView.delegate = self
-        addVideoPlayer(with: a, playerView: playerView)
+        addVideoPlayer(with: asset, playerView: playerView)
     }
     
     private func addVideoPlayer(with asset: AVAsset, playerView: UIView) {

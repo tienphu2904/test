@@ -14,9 +14,6 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadLibrary()
-        loadAssetRandomly()
-        
     }
     @IBAction func back(_ sender: Any) {
         

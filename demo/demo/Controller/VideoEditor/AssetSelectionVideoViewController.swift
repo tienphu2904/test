@@ -35,10 +35,12 @@ class AssetSelectionVideoViewController: UIViewController {
         
         let randomAssetIndex = Int(arc4random_uniform(UInt32(fetchResult.count - 1)))
         let asset = fetchResult.object(at: randomAssetIndex)
+        
         PHCachingImageManager().requestAVAsset(forVideo: asset, options: nil) { (avAsset, _, _) in
             DispatchQueue.main.async {
                 if let avAsset = avAsset {
                     self.loadAsset(avAsset)
+                    print(avAsset)
                 }
             }
         }
