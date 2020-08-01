@@ -14,6 +14,10 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.viewDidLoad()
+        let asset = AVAsset(url: path as URL)
+        loadAsset(asset)
+        loadAssetRandomly()
     }
     @IBAction func back(_ sender: Any) {
         
@@ -45,21 +49,21 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     
     @IBAction func crop(_ sender: Any) {
         
-        if let selectedTime = selectThumbView.selectedTime, let asset = videoCropView.asset {
-            let generator = AVAssetImageGenerator(asset: asset)
-            generator.requestedTimeToleranceBefore = CMTime.zero
-            generator.requestedTimeToleranceAfter = CMTime.zero
-            generator.appliesPreferredTrackTransform = true
-            var actualTime = CMTime.zero
-            let image = try? generator.copyCGImage(at: selectedTime, actualTime: &actualTime)
-            if let image = image {
-                let selectedImage = UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .up)
-                let croppedImage = selectedImage.crop(in: videoCropView.getImageCropFrame())!
-                UIImageWriteToSavedPhotosAlbum(croppedImage, nil, nil, nil)
-            }
+//        if let selectedTime = selectThumbView.selectedTime, let asset = videoCropView.asset {
+//            let generator = AVAssetImageGenerator(asset: asset)
+//            generator.requestedTimeToleranceBefore = CMTime.zero
+//            generator.requestedTimeToleranceAfter = CMTime.zero
+//            generator.appliesPreferredTrackTransform = true
+//            var actualTime = CMTime.zero
+//            let image = try? generator.copyCGImage(at: selectedTime, actualTime: &actualTime)
+//            if let image = image {
+//                let selectedImage = UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .up)
+//                let croppedImage = selectedImage.crop(in: videoCropView.getImageCropFrame())!
+//                UIImageWriteToSavedPhotosAlbum(croppedImage, nil, nil, nil)
+//            }
             try? prepareAssetComposition()
             
-        }
+//        }
     }
     
     func prepareAssetComposition() throws {

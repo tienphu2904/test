@@ -654,7 +654,6 @@
                         <constraints>
                             <constraint firstItem="naM-da-2Km" firstAttribute="height" secondItem="E4X-j0-mmm" secondAttribute="height" multiplier="2/3" id="3i7-1c-Vgp"/>
                             <constraint firstItem="Lz0-sN-p3z" firstAttribute="width" secondItem="E4X-j0-mmm" secondAttribute="width" id="4nD-Vj-pYP"/>
-                            <constraint firstAttribute="bottom" secondItem="inL-6n-vkI" secondAttribute="bottom" id="6RH-38-tZZ"/>
                             <constraint firstItem="dDm-kj-6bW" firstAttribute="width" secondItem="sxR-U6-W7I" secondAttribute="width" id="Cis-EP-XcG"/>
                             <constraint firstItem="dDm-kj-6bW" firstAttribute="top" secondItem="sxR-U6-W7I" secondAttribute="top" id="KL1-g5-rSL"/>
                             <constraint firstItem="sxR-U6-W7I" firstAttribute="bottom" secondItem="inL-6n-vkI" secondAttribute="bottom" constant="12" id="MfJ-zg-SLE"/>
