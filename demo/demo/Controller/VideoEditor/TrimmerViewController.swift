@@ -138,7 +138,7 @@ class TrimmerViewController: AssetSelectionVideoViewController {
         let playerItem = AVPlayerItem(asset: asset)
         player = AVPlayer(playerItem: playerItem)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(TrimmerViewController.itemDidFinishPlaying(_:)),
+        NotificationCenter.default.addObserver(self, selector: #selector(itemDidFinishPlaying(_:)),
                                                name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerItem)
         
         let layer: AVPlayerLayer = AVPlayerLayer(player: player)
