@@ -22,7 +22,8 @@ class DuplicateVideoViewController: AssetSelectionVideoViewController {
         
         let asset = AVAsset(url: path as URL)
         loadAsset(asset)
-        loadAssetRandomly()
+        trimmerView.asset = asset
+        trimmerView.delegate = self
     }
     
     @IBAction func selectAsset(_ sender: Any) {
@@ -261,10 +262,9 @@ class DuplicateVideoViewController: AssetSelectionVideoViewController {
     }
     
     override func loadAsset(_ asset: AVAsset) {
-        
+        addVideoPlayer(with: asset, playerView: playerView)
         trimmerView.asset = asset
         trimmerView.delegate = self
-        addVideoPlayer(with: asset, playerView: playerView)
     }
     
     private func addVideoPlayer(with asset: AVAsset, playerView: UIView) {

@@ -20,7 +20,8 @@ class TrimmerViewController: AssetSelectionVideoViewController {
         super.viewDidLoad()
         let asset = AVAsset(url: path as URL)
         loadAsset(asset)
-        loadAssetRandomly()
+        trimmerView.asset = asset
+        trimmerView.delegate = self
     }
     
     @IBAction func selectAsset(_ sender: Any) {
@@ -128,9 +129,10 @@ class TrimmerViewController: AssetSelectionVideoViewController {
     }
     
     override func loadAsset(_ asset: AVAsset) {
+        addVideoPlayer(with: asset, playerView: playerView)
         trimmerView.asset = asset
         trimmerView.delegate = self
-        addVideoPlayer(with: asset, playerView: playerView)
+
     }
     
     

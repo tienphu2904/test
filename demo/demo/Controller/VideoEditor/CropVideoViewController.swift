@@ -14,10 +14,10 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.viewDidLoad()
         let asset = AVAsset(url: path as URL)
         loadAsset(asset)
-        loadAssetRandomly()
+//        selectThumbView.asset = asset
+//        selectThumbView.delegate = self
     }
     @IBAction func back(_ sender: Any) {
         
@@ -34,9 +34,9 @@ class CropVideoViewController: AssetSelectionVideoViewController {
         
     }
     override func loadAsset(_ asset: AVAsset) {
-        selectThumbView.asset = AVAsset(url: path as URL)
+        videoCropView.asset = asset
+        selectThumbView.asset = asset
         selectThumbView.delegate = self
-        videoCropView.asset = AVAsset(url: path as URL)
         
     }
     
@@ -49,21 +49,21 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     
     @IBAction func crop(_ sender: Any) {
         
-//        if let selectedTime = selectThumbView.selectedTime, let asset = videoCropView.asset {
-//            let generator = AVAssetImageGenerator(asset: asset)
-//            generator.requestedTimeToleranceBefore = CMTime.zero
-//            generator.requestedTimeToleranceAfter = CMTime.zero
-//            generator.appliesPreferredTrackTransform = true
-//            var actualTime = CMTime.zero
-//            let image = try? generator.copyCGImage(at: selectedTime, actualTime: &actualTime)
-//            if let image = image {
-//                let selectedImage = UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .up)
-//                let croppedImage = selectedImage.crop(in: videoCropView.getImageCropFrame())!
-//                UIImageWriteToSavedPhotosAlbum(croppedImage, nil, nil, nil)
-//            }
-            try? prepareAssetComposition()
-            
-//        }
+        //        if let selectedTime = selectThumbView.selectedTime, let asset = videoCropView.asset {
+        //            let generator = AVAssetImageGenerator(asset: asset)
+        //            generator.requestedTimeToleranceBefore = CMTime.zero
+        //            generator.requestedTimeToleranceAfter = CMTime.zero
+        //            generator.appliesPreferredTrackTransform = true
+        //            var actualTime = CMTime.zero
+        //            let image = try? generator.copyCGImage(at: selectedTime, actualTime: &actualTime)
+        //            if let image = image {
+        //                let selectedImage = UIImage(cgImage: image, scale: UIScreen.main.scale, orientation: .up)
+        //                let croppedImage = selectedImage.crop(in: videoCropView.getImageCropFrame())!
+        //                UIImageWriteToSavedPhotosAlbum(croppedImage, nil, nil, nil)
+        //            }
+        try? prepareAssetComposition()
+        
+        //        }
     }
     
     func prepareAssetComposition() throws {
@@ -96,7 +96,7 @@ class CropVideoViewController: AssetSelectionVideoViewController {
         let x = cropFrame.minX
         let y = cropFrame.minY
         
-
+        
         let furl = createUrlInApp(name: "12.MOV")
         removeFileIfExists(fileURL: furl)
         guard let filePath = path else {
@@ -151,19 +151,20 @@ class CropVideoViewController: AssetSelectionVideoViewController {
         print("actual Transform = \(transform)")
         return transform
     }
-}
-func createUrlInApp(name: String ) -> URL {
-    return URL(fileURLWithPath: "\(NSTemporaryDirectory())\(name)")
-}
+    func createUrlInApp(name: String ) -> URL {
+        return URL(fileURLWithPath: "\(NSTemporaryDirectory())\(name)")
+    }
 
-func removeFileIfExists(fileURL: URL) {
-    do {
-        try FileManager.default.removeItem(at: fileURL)
-    } catch {
-        print(error.localizedDescription)
-        return
+    func removeFileIfExists(fileURL: URL) {
+        do {
+            try FileManager.default.removeItem(at: fileURL)
+        } catch {
+            print(error.localizedDescription)
+            return
+        }
     }
 }
+
 extension CropVideoViewController: ThumbSelectorViewDelegate {
     
     func didChangeThumbPosition(_ imageTime: CMTime) {
