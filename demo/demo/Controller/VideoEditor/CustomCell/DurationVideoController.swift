@@ -6,19 +6,15 @@ import ZKProgressHUD
 class DurationVideoController: UIViewController {
     
     @IBOutlet weak var viewVideo1: UIView!
+    @IBOutlet weak var timeSlider: UISlider!
     
     var playerController = AVPlayerViewController()
     var player: AVPlayer!
     var isVideoPlay = false
     var path: NSURL!
-    
-    
-    @IBOutlet weak var timeSlider: UISlider!
-    
-    
+     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         player = AVPlayer(url: path as URL)
         player.currentItem?.addObserver(self, forKeyPath: "duration", options: [.new, .initial], context: nil)
         addTimeObserver()
@@ -29,9 +25,8 @@ class DurationVideoController: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)  
+        self.navigationController?.popViewController(animated: true)
     }
-    
     
     func addTimeObserver() {
         let interval = CMTime(seconds: 0.5, preferredTimescale: CMTimeScale(NSEC_PER_SEC))
@@ -45,7 +40,6 @@ class DurationVideoController: UIViewController {
         })
     }
     
-    
     @IBAction func save(_ sender: Any) {
         
         if player.rate == 2.0{
@@ -54,17 +48,16 @@ class DurationVideoController: UIViewController {
                 return
             }
             player.pause()
+            
             //SpeeđAuio
             let furl = createUrlInApp(name: "1.mp4")
             removeFileIfExists(fileURL: furl)
             let cut = "-i \(filePath) -filter_complex \"[0:v]setpts=0.5*PTS[v];[0:a]atempo=2.0[a]\" -map \"[v]\" -map \"[a]\" \(furl)"
-            
-            
+              
             //SpeedVideo
             let furl2 = createUrlInApp(name: "2.mp4")
             removeFileIfExists(fileURL: furl2)
             let cut2 = "-itsscale 0.5 -i \(filePath) -c copy \(furl2)"
-            
             
             //graft
             let furl3 = createUrlInApp(name: "3.mp4")
@@ -85,8 +78,7 @@ class DurationVideoController: UIViewController {
                     ZKProgressHUD.showSuccess()
                 }
             }
-            
-        }else if player.rate == 0.5 {
+        } else if player.rate == 0.5 {
             guard let filePath = path else {
                 debugPrint("Video not found")
                 return
@@ -121,7 +113,6 @@ class DurationVideoController: UIViewController {
                     ZKProgressHUD.dismiss()
                     ZKProgressHUD.showSuccess()
                 }
-                
             }
         }
     }
@@ -144,12 +135,10 @@ class DurationVideoController: UIViewController {
     
     @IBAction func forwardPressed(_ sender: Any) {
         player.rate = 0.5
-        
     }
     
     @IBAction func backwardsPressed(_ sender: Any) {
         player.rate = 2.0
-        
     }
     
     @IBAction func sliderValueChanged(_ sender: UISlider) {
@@ -172,5 +161,4 @@ class DurationVideoController: UIViewController {
             return String(format: "%02i:%02i", arguments: [minutes,seconds])
         }
     }
-    
 }

@@ -14,10 +14,8 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let asset = AVAsset(url: path as URL)
-        loadAsset(asset)
-//        selectThumbView.asset = asset
-//        selectThumbView.delegate = self
+        load()
+        videoCropView.setAspectRatio(CGSize(width: 3, height: 2), animated: false)
     }
     @IBAction func back(_ sender: Any) {
         
@@ -30,19 +28,22 @@ class CropVideoViewController: AssetSelectionVideoViewController {
     }
     
     @IBAction func selectAsset(_ sender: Any) {
-        loadAssetRandomly()
-        
-    }
-    override func loadAsset(_ asset: AVAsset) {
+        let asset = AVAsset(url: path as URL)
         videoCropView.asset = asset
         selectThumbView.asset = asset
         selectThumbView.delegate = self
-        
     }
+    func load() {
+        let asset = AVAsset(url: path as URL)
+        videoCropView.asset = asset
+        selectThumbView.asset = asset
+        selectThumbView.delegate = self
+    }
+ 
     
     @IBAction func rotate(_ sender: Any) {
         
-        let newRatio = videoCropView.aspectRatio.width < videoCropView.aspectRatio.height ? CGSize(width: 4, height: 3) :
+        let newRatio = videoCropView.aspectRatio.width < videoCropView.aspectRatio.height ? CGSize(width: 9, height: 16) :
             CGSize(width: 3, height: 4)
         videoCropView.setAspectRatio(newRatio, animated: true)
     }
@@ -97,7 +98,7 @@ class CropVideoViewController: AssetSelectionVideoViewController {
         let y = cropFrame.minY
         
         
-        let furl = createUrlInApp(name: "12.MOV")
+        let furl = createUrlInApp(name: "VDCROP.MOV")
         removeFileIfExists(fileURL: furl)
         guard let filePath = path else {
             debugPrint("Video not found")
